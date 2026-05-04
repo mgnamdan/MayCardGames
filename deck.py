@@ -10,6 +10,7 @@ class Deck:
         self.numDecks = numDecks
         self.reset()
 
+
     def reset(self):
         self.drawPile = []
         self.discardPile = []
@@ -20,12 +21,27 @@ class Deck:
                     newCard = Card(rank, suit)
                     self.drawPile.append(newCard)
         
+
     def shuffle(self):
         shuffle(self.drawPile)
+
+
+    def draw(self):
+        toReturn = self.drawPile.pop(0)
+        self.outPile.append(toReturn)
+        return toReturn
+
+
+    def discard(self, toDiscard):
+        if toDiscard in self.outPile:
+            self.outPile.remove(toDiscard)
+        self.discardPile.append(toDiscard)
+
 
     def __repr__(self):
         # return f"A deck comprised of {self.numDecks} standard decks"
         return "\n".join(str(card) for card in self.drawPile)
+
 
     def __eq__(self, other):
         if not isinstance(other, self.__class__):

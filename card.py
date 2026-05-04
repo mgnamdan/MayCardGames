@@ -4,9 +4,11 @@ class Card:
         self.rank = rank
         self.suit = suit
     
+    
     def __repr__(self):
         return f"[{self.rank} of {self.suit}]"
     
+
     def __eq__(self, other):
         if not isinstance(other, Card):
             return False
