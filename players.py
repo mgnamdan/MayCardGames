@@ -19,6 +19,7 @@ class BlackJackPlayer:
 
 
     def showHand(self):
+        print("")
         print(f"~~~~~ {self.name}'s Hand ~~~~~")
         print("")
         if len(self.hand) > 0:
@@ -44,7 +45,7 @@ class BlackJackPlayer:
 
     def chooseAction(self):
         self.calcScore()
-        if self.score >= 17:
+        if self.score >= 17 or len(self.hand) >= 5:
             return "stay"
         else:
             return "hit"
@@ -70,4 +71,26 @@ class BlackJackPlayer:
 
 
 class HumBlackJackPlayer(BlackJackPlayer):
-    pass
+    
+    def chooseAction(self):
+        self.calcScore()
+        if self.score >= 21 or len(self.hand) >= 5:
+            return "stay"
+        else:
+            validChoice = False
+            while not validChoice:
+                self.showHand()
+                print("Would you like to 'hit' or 'stay'?")
+                playerChoice = input(" --> ").lower()
+                if playerChoice in ['hit', 'h']:
+                    playerChoice = "hit"
+                    validChoice = True
+                elif playerChoice in ['stay', 's']:
+                    playerChoice = "stay"
+                    validChoice = True
+                elif playerChoice in ['cheat', 'win', 'w', 'c']:
+                    playerChoice = "win"
+                    validChoice = True
+                else:
+                    print("That's not a valid move - try again!")
+            return playerChoice
